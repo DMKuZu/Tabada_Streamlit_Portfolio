@@ -34,7 +34,7 @@ with st.container():
 
     with right_column:
         with st.container():
-            st.image("https://media.giphy.com/media/qgQUggAC3Pfv687qPC/giphy.gif", width=300)
+            st.image("https://media.giphy.com/media/L8K62iTDkzGX6/giphy.gif", width=300)
             st.header("What I Do")
             st.write(
                 """
