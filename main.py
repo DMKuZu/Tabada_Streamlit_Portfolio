@@ -1,16 +1,6 @@
 import streamlit as st
-from streamlit_lottie import st_lottie
-import requests
 
 st.set_page_config(page_title="My Portfolio", layout="wide", page_icon="🌐")
-
-# Load animation
-def load_lottieurl(url):
-    r = requests.get(url)
-    if r.status_code != 200:
-        return None
-    return r.json()
-
 
 # Intro section
 with st.container():
@@ -44,8 +34,7 @@ with st.container():
 
     with right_column:
         with st.container():
-            lottie_coding = load_lottieurl("https://assets10.lottiefiles.com/packages/lf20_jcikwtux.json")
-            st_lottie(lottie_coding, width=300, key="coding")
+            st.image("https://media.giphy.com/media/qgQUggAC3Pfv687qPC/giphy.gif", width=300)
             st.header("What I Do")
             st.write(
                 """
