@@ -68,54 +68,110 @@ st.markdown("---")
 # --- MIDDLE SECTION: PROJECTS ---
 st.header("Projects")
 
-p_col1, p_col2 = st.columns([1.5, 2])
+# Project data structure
+projects = [
+    {
+        "name": "CSVParser",
+        "tech": ["Java", "HTML"],
+        "description": "A JavaFX desktop application that generates printable PDF vouchers from CSV data. It reads voucher codes from CSV files and combines them with customizable parameters to produce formatted, multi-card PDF documents.",
+        "images": [
+            "resources/CSVParser1.png",
+            "resources/CSVParser2.png"
+        ],
+        "github": "https://github.com/DMKuZu/CSVParser",
+        "collaborators": [{"name": "Kintoyyy", "github": "https://github.com/Kintoyyy"}]
+    },
+    {
+        "name": "PPPoE Management System",
+        "tech": ["Java", "MikroTik"],
+        "description": "A JavaFX application that enables administrators to manage PPPoE user accounts, monitor connections, and assign IP addresses over a shared Ethernet network. Integrates with MikroTik routers to handle authentication and connection management.",
+        "images": [
+            "resources/PPPoE1.png",
+            "resources/PPPoE2.png",
+            "resources/PPPoE3.png",
+        ],
+        "github": "Private repo",
+        "collaborators": [{"name": "Kintoyyy", "github": "https://github.com/Kintoyyy"},{"name": "jojseph", "github": "https://github.com/jojseph"}, {"name": "Naweeeeeh", "github": "https://github.com/Naweeeeeeh"}, {"name": "IgnisFrostBurn", "github": "https://github.com/IgnisFrostBurn"}]
+    },
+    {
+        "name": "Dunzo",
+        "tech": ["Django", "React", "TailwindCSS"],
+        "description": "A task manager web application similar to monday.com featuring project management, calendar functionality, and user management. Built with a Django REST backend and a React frontend using Tailwind CSS.",
+        "images": [
+            "resources/dunzo1.png",
+        ],
+        "github": "Private repo",
+        "collaborators": [{"name": "jojseph", "github": "https://github.com/jojseph"},{"name": "Joryuoo", "github": "https://github.com/Joryuoo"},{"name": "Fay-V", "github": "https://github.com/Fay-V"},{"name": "Libron-ChristianNeil", "github": "https://github.com/Libron-ChristianNeil"}]
+    },
+    {
+        "name": "NavCit",
+        "tech": ["SpringBoot", "Java", "React"],
+        "description": "An interactive map application for the Cebu Institute of Technology - University campus. Navigate buildings, view locations, and explore campus facilities with an intuitive web interface.",
+        "images": [
+            "resources/navcit1.png",
+            "resources/navcit2.png",
+            "resources/navcit3.png"
+        ],
+        "github": "Private repo",
+        "collaborators": [{"name": "jojseph", "github": "https://github.com/jojseph"},{"name": "Joryuoo", "github": "https://github.com/Joryuoo"},{"name": "Beansman", "github": "https://github.com/Beansman"},{"name": "Pallu", "github": "https://github.com/Pallu"}]
+    },
+    {
+        "name": "AgarthaTech",
+        "tech": ["Next.js", "Solidity"],
+        "description": " A trustless, decentralized legal escrow service binding Philippine digital agreements with blockchain-enforced payments. Web3 dApp built with Next.js/React and Solidity smart contracts deployed on Polkadot EVM Testnet.",
+        "images": [
+            "resources/agarthatech1.png",
+            "resources/agarthatech2.png",
+            "resources/agarthatech3.png",
+            "resources/agarthatech4.png",
+            "resources/agarthatech5.png",
+        ],
+        "github": "https://github.com/DMKuZu/Agartha-Polkadot",
+        "collaborators": [{"name": "Beansman", "github": "https://github.com/Beansman"},{"name": "IgnisFrostBurn", "github": "https://github.com/IgnisFrostBurn"}]
+    }
+]
 
-with p_col1:
-    # Native Streamlit Image Carousel Workaround using Session State
-    if 'img_index' not in st.session_state:
-        st.session_state.img_index = 0
-        
-    # Placeholder images for your CSVParser project
-    project_images = [
-        "https://via.placeholder.com/600x400.png?text=CSVParser+Image+1",
-        "https://via.placeholder.com/600x400.png?text=CSVParser+Image+2",
-        "https://via.placeholder.com/600x400.png?text=CSVParser+Image+3"
-    ]
-    
-    st.image(project_images[st.session_state.img_index], use_container_width=True)
-    
-    # Carousel controls
-    btn_col1, btn_col2, btn_col3 = st.columns([1, 1, 1])
-    with btn_col1:
-        if st.button("◀ Prev"):
-            st.session_state.img_index = (st.session_state.img_index - 1) % len(project_images)
-            st.rerun()
-    with btn_col2:
-        st.write(f"<div style='text-align: center; color: #888;'>{st.session_state.img_index + 1} / {len(project_images)}</div>", unsafe_allow_html=True)
-    with btn_col3:
-        if st.button("Next ▶"):
-            st.session_state.img_index = (st.session_state.img_index + 1) % len(project_images)
-            st.rerun()
+# Render projects as expandable sections
+for project in projects:
+    with st.expander(f"📌 **{project['name']}**", expanded=False):
+        # Tech Stack Tags
+        tech_tags = ''.join([f'<span class="tech-tag">{tech}</span>' for tech in project['tech']])
+        st.markdown(f"<div>{tech_tags}</div>", unsafe_allow_html=True)
 
-with p_col2:
-    # Tech Stack Tags
-    st.markdown("""
-        <div>
-            <span class="tech-tag">Java</span>
-            <span class="tech-tag">HTML</span>
-        </div>
-    """, unsafe_allow_html=True)
-    
-    st.subheader("CSVParser")
-    st.write("""
-    A simple JavaFX desktop application that generates printable PDF vouchers from CSV data. 
-    It reads voucher codes from CSV files and combines them with customizable parameters to produce 
-    formatted, multi-card PDF documents.
-    """)
-    
-    st.write("**In Collaboration with:**")
-    # GitHub link to collaborator
-    st.markdown("[Kintoyyy](https://github.com/Kintoyyy) *(GitHub Profile)*")
+        # Description
+        st.write(project['description'])
+
+        # Images with carousel
+        if project['images']:
+            carousel_key = f"carousel_{project['name']}"
+            if carousel_key not in st.session_state:
+                st.session_state[carousel_key] = 0
+
+            # Display current image
+            st.image(project['images'][st.session_state[carousel_key]], use_container_width=True)
+
+            # Carousel controls
+            if len(project['images']) > 1:
+                btn_col1, btn_col2, btn_col3 = st.columns([1, 1, 1])
+                with btn_col1:
+                    if st.button("◀ Prev", key=f"prev_{project['name']}"):
+                        st.session_state[carousel_key] = (st.session_state[carousel_key] - 1) % len(project['images'])
+                        st.rerun()
+                with btn_col2:
+                    st.write(f"<div style='text-align: center; color: #888;'>{st.session_state[carousel_key] + 1} / {len(project['images'])}</div>", unsafe_allow_html=True)
+                with btn_col3:
+                    if st.button("Next ▶", key=f"next_{project['name']}"):
+                        st.session_state[carousel_key] = (st.session_state[carousel_key] + 1) % len(project['images'])
+                        st.rerun()
+
+        # GitHub Link
+        st.markdown(f"🔗 [View on GitHub]({project['github']})")
+
+        # Collaborators
+        if project['collaborators']:
+            st.write("**In Collaboration with:**")
+            for collab in project['collaborators']:
+                st.markdown(f"[{collab['name']}]({collab['github']})")
 
 st.markdown("---")
 
@@ -131,10 +187,10 @@ with c_col2:
     # Social Links using FontAwesome icons mapping to your wireframe
     st.markdown("""
         <a href="https://github.com/DMKuZu" target="_blank" class="social-link">
-            <i class="fa-brands fa-github social-icon" style="color: #E1306C;"></i> Follow on GitHub
+            <i class="fa-brands fa-github social-icon"></i> Follow on GitHub
         </a>
         <a href="https://linkedin.com/in/jwtabada" target="_blank" class="social-link">
-            <i class="fa-brands fa-linkedin social-icon" style="color: #0077b5;"></i> Follow on Linkedin
+            <i class="fa-brands fa-linkedin social-icon"></i> Follow on Linkedin
         </a>
         <br>
         <a href="mailto:john.winston.tabada@gmail.com" class="social-link">
